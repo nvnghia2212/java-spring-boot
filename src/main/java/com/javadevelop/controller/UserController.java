@@ -16,7 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "user", produces = "application/json")
+@RequestMapping("user")
 public class UserController {
 
     @Autowired
@@ -28,12 +28,12 @@ public class UserController {
     @Autowired
     private JwtToken jwtToken;
 
-    @GetMapping(value = "/logout")
+    @PostMapping(value = "/logout", produces = "application/json")
     public ResponseEntity<String> logoutUser() {
         return ResponseEntity.status(HttpStatus.OK).body("logout: ");
     }
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/login", produces = "application/json")
     public String loginUser(@RequestBody UserDTO userDTO) {
 
         // Xác thực từ username và password.
@@ -49,7 +49,7 @@ public class UserController {
         return "token: " + jwt;
     }
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     public BaseDTO<UserDTO> getUser(@RequestParam(value = "page", required = false) Integer page,
                                     @RequestParam(value = "iteminpage", required = false) Integer iteminpage) {
         BaseDTO<UserDTO> userBaseDTO = new BaseDTO<>();
@@ -64,12 +64,12 @@ public class UserController {
         return userBaseDTO;
     }
 
-    @PostMapping
+    @PostMapping(produces = "application/json")
     public UserDTO createUser(@RequestBody UserDTO model) {
         return userService.save(model);
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/{id}", produces = "application/json")
     public UserDTO updateUser(@RequestBody UserDTO model, @PathVariable("id") long id) {
         model.setId(id);
         return userService.save(model);

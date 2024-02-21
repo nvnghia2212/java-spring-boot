@@ -32,10 +32,10 @@ public class ProductConverter {
 		productDTO.setShortDescription(productEntity.getShortDescription());
 		productDTO.setDescription(productEntity.getDescription());
 		productDTO.setCategoryCode(productEntity.getCategory().getCode());
-//		productDTO.setCreatedBy(productEntity.getCreatedBy());
-//		productDTO.setCreatedDate(productEntity.getCreatedDate());
-//		productDTO.setModifiedBy(productEntity.getModifiedBy());
-//		productDTO.setModifiefdDate(productEntity.getModifiefdDate());
+		productDTO.setCreatedBy(productEntity.getCreatedBy());
+		productDTO.setCreatedDate(productEntity.getCreatedDate());
+		productDTO.setModifiedBy(productEntity.getModifiedBy());
+		productDTO.setModifiefdDate(productEntity.getModifiefdDate());
 		return productDTO;
 	}
 
@@ -59,10 +59,10 @@ public class ProductConverter {
 			productDTO.setName(newEntity.getDescription());
 			productDTO.setShortDescription(newEntity.getShortDescription());
 			productDTO.setDescription(newEntity.getName());
-//			productDTO.setCreatedBy(newEntity.getCreatedBy());
-//			productDTO.setCreatedDate(newEntity.getCreatedDate());
-//			productDTO.setModifiedBy(newEntity.getModifiedBy());
-//			productDTO.setModifiefdDate(newEntity.getModifiefdDate());
+			productDTO.setCreatedBy(newEntity.getCreatedBy());
+			productDTO.setCreatedDate(newEntity.getCreatedDate());
+			productDTO.setModifiedBy(newEntity.getModifiedBy());
+			productDTO.setModifiefdDate(newEntity.getModifiefdDate());
 			arrayList.add(productDTO);
 		}
 		return arrayList;

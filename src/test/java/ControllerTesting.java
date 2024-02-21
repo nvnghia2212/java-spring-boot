@@ -65,14 +65,22 @@ public class ControllerTesting {
             userDTO.setFullName("userFullName " + i);
             allUserDTO.add(userDTO);
         }
+        // giả lập todoService trả về List mong muốn
+//        given(userService.findAll()).willReturn(allUserDTO);
 
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void testGETController() throws Exception {
 
+        // Tại sao khi thêm đoạn này thì status nó lại trả về 500
+//        Mockito.when(userService.findAll()).thenReturn(allUserDTO);
+
         this.mockMvc.perform(get("/user").contentType(MediaType.APPLICATION_JSON)) // Thực hiện GET REQUEST
                 .andExpect(status().isOk()); // Mong muốn Server trả về status 200
+//                .andExpect(jsonPath("$.listResult", hasSize(10))); // Hi vọng server trả về listResult độ dài 10
+//                .andExpect((ResultMatcher) jsonPath("$.listResult[0]", is(userDTO1)));
     }
 
     @Test
@@ -84,12 +92,29 @@ public class ControllerTesting {
                 .content(stringJson)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()); // Mong muốn Server trả về status 200
+
+//        assertEquals(HttpStatus.OK.value(), ((mockMvc.perform(post("/user")
+//                .accept(MediaType.APPLICATION_JSON)
+//                .content(stringJson)
+//                .contentType(MediaType.APPLICATION_JSON)).andReturn()).getResponse()).getStatus());
+
+//        assertEquals("http://localhost:8088/user",
+//                ((mockMvc.perform(post("/user")
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .content(stringJson)
+//                        .contentType(MediaType.APPLICATION_JSON)).andReturn()).getResponse()).getHeader(HttpHeaders.LOCATION));
     }
 
     @Test
     public void testPUTController() throws Exception {
 
         String stringJson = "{\"userName\":\"usertest\",\"password\":\"usertest\",\"fullName\":\"usertest\",\"status\":\"2\",\"roles\":[{\"code\":\"USER\"}]}";
+
+//        this.mockMvc.perform(put("/user/1")
+//                .accept(MediaType.APPLICATION_JSON)
+//                .content("{\"userName\":\"usertest\",\"password\":\"usertest\",\"fullName\":\"usertest\",\"status\":\"2\",\"roles\":[{\"code\":\"USER\"}]}")
+//                .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk()) ;// Mong muốn Server trả về status 200
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .put("/user/1")

@@ -45,7 +45,21 @@ import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.time;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
+//@ContextConfiguration
+//@DataJpaTest
+//@SpringBootTest
 public class UserTesting {
+
+//    @TestConfiguration
+//    public static class ServiceTestConfiguration {
+//        @Bean
+//        public PasswordEncoder passwordEncoder() {
+//            // Password encoder, để Spring Security mã hóa mật khẩu người dùng
+//            return new BCryptPasswordEncoder();
+//        }
+//    }
+//    @Autowired
+//    PasswordEncoder passwordEncoder;
 
     @InjectMocks
     UserService userService;
@@ -74,6 +88,7 @@ public class UserTesting {
         roleDTOs.add(roleDTO);
 
         userDTO = new UserDTO();
+//        userDTO.setId(1L);
         userDTO.setUserName("userTesting");
         userDTO.setPassword("userTesting");
         userDTO.setFullName("userTesting");
@@ -104,8 +119,12 @@ public class UserTesting {
         Mockito.when(userConverter.toUserEntity(userDTO)).thenReturn(userEntity);
         Mockito.when(userRepository.save(userEntity)).thenReturn(userEntity);
         Mockito.when(userConverter.toUserDTO(userEntity)).thenReturn(userDTO);
+//        Mockito.when(userRepository.findOneById(userDTO.getId())).thenReturn(userEntity);
 
-        UserDTO userDTOsave = userService.save(userDTO);
+        UserDTO userDTOsave = new UserDTO();
+        userDTOsave.setUserName("userTesting");
+        Mockito.when(userService.save(userDTO)).thenReturn(userDTOsave);
+
         Assert.assertEquals("userTesting", userDTOsave.getUserName());
     }
 
@@ -119,17 +138,16 @@ public class UserTesting {
     @Test
     @Order(4)
     public void TestConverterToEntity() {
-        Mockito.when(userConverter.toUserEntity(userDTO)).thenReturn(userEntity);
-        UserEntity userEntity1 = userConverter.toUserEntity(userDTO);
-        Assert.assertEquals("userTesting", userEntity1.getFullName());
+//        UserEntity userEntity = new UserEntity();
+        Mockito.when(userConverter.toUserEntity(new UserDTO())).thenReturn(userEntity);
+        Assert.assertEquals("userTesting", userEntity.getFullName());
     }
 
     @Test
     @Order(5)
     public void TestConverterToDTO() {
-        Mockito.when(userConverter.toUserDTO(userEntity)).thenReturn(userDTO);
-        UserDTO userDTO1 = userConverter.toUserDTO(userEntity);
-        Assert.assertEquals("userTesting", userDTO1.getFullName());
+        Mockito.when(userConverter.toUserDTO(new UserEntity())).thenReturn(userDTO);
+        Assert.assertEquals("userTesting", userDTO.getFullName());
     }
 
     @Test

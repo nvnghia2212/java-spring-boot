@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @DataJpaTest
+//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class DataJPATesting {
 
     @Mock
@@ -41,6 +42,18 @@ public class DataJPATesting {
 
     @Before
     public void setup() {
+//        RoleDTO roleDTO = new RoleDTO();
+//        roleDTO.setCode("USER");
+//        roleDTO.setName("user");
+//        List<RoleDTO> roleDTOs = new ArrayList<>();
+//        roleDTOs.add(roleDTO);
+//
+//        userDTO = new UserDTO();
+//        userDTO.setUserName("userTesting");
+//        userDTO.setPassword("userTesting");
+//        userDTO.setFullName("userTesting");
+//        userDTO.setStatus(1);
+//        userDTO.setRoles(roleDTOs);
         MockitoAnnotations.initMocks(this);
     }
 
@@ -50,5 +63,34 @@ public class DataJPATesting {
         Assertions.assertThat(jdbcTemplate).isNotNull();
         Assertions.assertThat(entityManager).isNotNull();
         Assertions.assertThat(userRepository).isNotNull();
+    }
+
+    @Test
+    @Rollback(value = false)
+    public void TestSave() {
+
+        RoleEntity roleEntity = new RoleEntity();
+        roleEntity.setCode("USER");
+        roleEntity.setName("user");
+        List<RoleEntity> roleEntitys = new ArrayList<>();
+        roleEntitys.add(roleEntity);
+
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUserName("userTesting");
+        userEntity.setPassword("userTesting");
+        userEntity.setFullName("userTesting");
+        userEntity.setStatus(1);
+        userEntity.setRoles(roleEntitys);
+
+//        entityManager.persist(userEntity);
+//        entityManager.flush();
+
+        UserEntity userEntity1 = userRepository.save(userEntity);
+
+        Assert.assertNotNull(userEntity1);
+
+//        Assert.assertEquals(userEntity1.getUserName(),userEntity.getUserName());
+
+//        Assertions.assertThat(userRepository.findAll()).hasSize(1);
     }
 }

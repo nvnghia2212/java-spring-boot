@@ -28,7 +28,7 @@
         $.ajax({
             type : "POST",
             contentType : "application/json",
-            url : "http://localhost:8080/user/login",
+            url : "http://localhost:8088/user/login",
             data : JSON.stringify({
                 userName : userName,
                 password : password
@@ -37,7 +37,7 @@
             timeout : 100000,
             success : function(result) {
               alert("Success: " + result);
-              window.location.href = "http://localhost:8080/";
+              window.location.href = "http://localhost:8088/";
             },
             error : function(e) {
               alert("Error: " + e);

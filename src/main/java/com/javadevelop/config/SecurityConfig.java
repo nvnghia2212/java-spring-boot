@@ -52,19 +52,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.headers().frameOptions().disable();
         http
                 .cors() // Ngăn chặn request từ một domain khác
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/listUser", "/login", "/mongodb/**", "/swagger-ui.html", "/h2-console/**", "/product").permitAll()
+                .antMatchers("/", "/hazelcast", "/listUser", "/login", "/mongodb/**").permitAll()
                 .antMatchers("/user/login").permitAll()
                 .antMatchers(HttpMethod.POST,"/user").permitAll() // Cho phép tất cả mọi người truy cập vào địa chỉ này
                 .antMatchers(HttpMethod.GET, "/user").hasAnyAuthority("MANAGER","ADMIN") // Cho phép quyền admin, mânger
                 .antMatchers(HttpMethod.PUT, "/user").hasAnyAuthority("MANAGER","ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/user").hasAuthority("ADMIN"); // Chỉ cho phép admin
-//                .anyRequest().authenticated(); // Tất cả các request khác đều cần phải xác thực mới được truy cập
-//              .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // phải sử dụng token (đc cấp sau khi login) để request các api khác
+                .antMatchers(HttpMethod.DELETE, "/user").hasAuthority("ADMIN") // Chỉ cho phép admin
+                .anyRequest().authenticated(); // Tất cả các request khác đều cần phải xác thực mới được truy cập
+//                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // phải sử dụng token (đc cấp sau khi login) để request các api khác
 
         http.logout()
                 .logoutUrl("/user/logout")

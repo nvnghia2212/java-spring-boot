@@ -27,10 +27,10 @@ public class UserConverter {
         userDTO.setPassword(userEntity.getPassword());
         userDTO.setFullName(userEntity.getFullName());
         userDTO.setStatus(userEntity.getStatus());
-//        userDTO.setCreatedBy(userEntity.getCreatedBy());
-//        userDTO.setCreatedDate(userEntity.getCreatedDate());
-//        userDTO.setModifiedBy(userEntity.getModifiedBy());
-//        userDTO.setModifiefdDate(userEntity.getModifiefdDate());
+        userDTO.setCreatedBy(userEntity.getCreatedBy());
+        userDTO.setCreatedDate(userEntity.getCreatedDate());
+        userDTO.setModifiedBy(userEntity.getModifiedBy());
+        userDTO.setModifiefdDate(userEntity.getModifiefdDate());
 
         userDTO.setRoles(addListRoleDTO(userEntity));
         return userDTO;

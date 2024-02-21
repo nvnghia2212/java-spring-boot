@@ -70,7 +70,7 @@ public class ProductService implements IProductService {
 		List<ProductDTO> arrList = new ArrayList<>();
 		for(ProductEntity newEntity : productRepository.findAll(pageable)) {
 			productDTO = productConverter.toProductDTO(newEntity);
-			productDTO.setPage(pageable.getPageNumber() + 1);
+//			productDTO.setPage(pageable.getPageNumber() + 1);
 			arrList.add(productDTO);
 		}
 		return arrList;

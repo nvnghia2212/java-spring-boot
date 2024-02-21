@@ -9,10 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.HttpSession;
 
-@ApiIgnore
 @Controller
 public class HomeController {
 
@@ -45,4 +44,14 @@ public class HomeController {
         return "login";
     }
 
+    @RequestMapping("/hazelcast")
+    public String index(HttpSession httpSession) {
+        Integer hits = (Integer) httpSession.getAttribute("hits");
+        if (hits == null) {
+            hits = 0;
+        }
+        httpSession.setAttribute("hits", ++hits);
+
+        return "welcomePage";
+    }
 }

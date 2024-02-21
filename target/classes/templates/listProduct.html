@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Product List</title>
+    <style type='text/css'>
+        table {
+          width: 95%;
+          border: 1px solid #C5B798;
+          margin-top: 15px;
+          margin-bottom: 25px;
+        }
+        td {
+          border-bottom: 1px solid #CDC1A7;
+          padding: 5px;
+        }
+        th {
+          font-family: "Trebuchet MS", Arial, Verdana;
+          font-size: 14px;
+          padding: 5px;
+          border-bottom-width: 1px;
+          border-bottom-style: solid;
+          border-bottom-color: #CDC1A7;
+          background-color: #CDC1A7;
+          color: #993300;
+        }
+    </style>
+</head>
+<body>
+<!-- Include _menu.html -->
+<h1> <th:block th:include="/_menu"></th:block> </h1>
+
+    <table>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Short Description</th>
+            <th>Category</th>
+        </tr>
+        <tr th:each = "listPro:${productBaseDTO.listResult}">
+
+            <td th:utext="${listPro.code}" ></td>
+            <td th:utext="${listPro.name}" ></td>
+            <td th:utext="${listPro.description}" ></td>
+            <td th:utext="${listPro.shortDescription}" ></td>
+            <td th:utext="${listPro.categoryCode}" ></td>
+
+        </tr>
+    </table>
+
+</body>
+</html>

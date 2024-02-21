@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <style type='text/css'>
+        table {
+          width: 95%;
+          border: 1px solid #C5B798;
+          margin-top: 15px;
+          margin-bottom: 25px;
+        }
+        td {
+          border-bottom: 1px solid #CDC1A7;
+          padding: 5px;
+        }
+        th {
+          font-family: "Trebuchet MS", Arial, Verdana;
+          font-size: 14px;
+          padding: 5px;
+          border-bottom-width: 1px;
+          border-bottom-style: solid;
+          border-bottom-color: #CDC1A7;
+          background-color: #CDC1A7;
+          color: #993300;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<!-- Include _menu.html -->
+    <h1> <th:block th:include="/_menu"></th:block> </h1>
+
+    <table id="ajax-response">
+    </table>
+<script>
+    $(document).ready(function(){
+        $.ajax({
+            url: "http://localhost:8080/user",
+            type: "GET",
+            contentType: "application/json",
+            success: function (result) {
+                var tabletr = "<tr>" +
+                        "<th>userName</th>" +
+                        "<th>fullName</th>" +
+                        "<th>status</th>" +
+                        "<th>roles</th>" +
+                        "</tr>";
+                $.each(result.listResult, function(index, obj){
+                    var role = "";
+                    $.each(obj.roles, function(index, roles){ role += roles.name +"    ";})
+                    tabletr += "<tr>"+
+                        "<td>"+ obj.userName +"</td>"+
+                        "<td>"+ obj.fullName +"</td>"+
+                        "<td>"+ obj.status +"</td>"+
+                        "<td>"+ role +"</td>"+
+                    "</tr>";
+                })
+                $("#ajax-response").html(tabletr);
+            },
+            error: function (error) {
+                window.location.href = "http://localhost:8080/login";
+            }
+        });
+    });
+</script>
+</body>
+</html>

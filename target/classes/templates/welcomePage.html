@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+    <!-- Include _menu.html -->
+    <h1> <th:block th:include="/_menu"></th:block> </h1>
+
+    <h2> Mess: <span th:utext="${message}" ></span> </h2>
+
+    <h3>Session Id</h3>
+    <p th:text="${#httpSession.id}"/>
+    <h3>Hits</h3>
+    <p th:text="${#httpSession.getAttribute('hits')}"/>
+</body>
+</html>

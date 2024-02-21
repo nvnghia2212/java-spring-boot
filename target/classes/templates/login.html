@@ -1,0 +1,48 @@
+<div xmlns:th="http://www.thymeleaf.org">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <div class="container">
+    <div class="login-form">
+      <form action="" method="post">
+        <h1>Đăng nhập vào website</h1>
+        <div class="input-box">
+          <i ></i>
+          <input id="userName" type="text" placeholder="Nhập username"/>
+        </div>
+        <div class="input-box">
+          <i ></i>
+          <input id="password" type="password" placeholder="Nhập mật khẩu"/>
+        </div>
+        <div class="btn-box">
+          <button id="submit" type="button">
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    $('#submit').click(function (e) {
+        var userName = $("#userName").val();
+        var password = $("#password").val();
+
+        $.ajax({
+            type : "POST",
+            contentType : "application/json",
+            url : "http://localhost:8080/user/login",
+            data : JSON.stringify({
+                userName : userName,
+                password : password
+            }),
+            dataType : "text",
+            timeout : 100000,
+            success : function(result) {
+              alert("Success: " + result);
+              window.location.href = "http://localhost:8080/";
+            },
+            error : function(e) {
+              alert("Error: " + e);
+            }
+        })
+    });
+  </script>
+</div>
